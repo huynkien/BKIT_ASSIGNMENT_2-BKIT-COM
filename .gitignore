@@ -1,0 +1,33 @@
+# ===== Build artifacts =====
+Debug/
+Release/
+*.o
+*.d
+*.elf
+*.map
+*.hex
+*.bin
+*.ld
+*.launch
+
+# ===== CubeIDE / Eclipse =====
+.settings/
+.settings/.settings/
+.project
+.cproject
+.metadata/
+.metadata/.plugins/
+
+# ===== Generated make files =====
+*.mk
+makefile
+sources.mk
+subdir.mk
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== IDE =====
+.vscode/
+.idea/
