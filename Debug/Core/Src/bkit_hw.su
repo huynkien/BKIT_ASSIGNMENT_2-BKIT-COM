@@ -1,0 +1,4 @@
+../Core/Src/bkit_hw.c:18:6:HAL_UART_RxCpltCallback	16	static
+../Core/Src/bkit_hw.c:29:15:hw_init_uart	8	static
+../Core/Src/bkit_hw.c:36:15:hw_send_uart	16	static
+../Core/Src/bkit_hw.c:43:15:hw_receive_uart	24	static
