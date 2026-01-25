@@ -29,25 +29,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  12 .ARM.attributes 00000030  00000000  00000000  0000600c  2**0
                   CONTENTS, READONLY
- 13 .debug_info   000134f8  00000000  00000000  0000603c  2**0
+ 13 .debug_info   0001352a  00000000  00000000  0000603c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 000030cb  00000000  00000000  00019534  2**0
+ 14 .debug_abbrev 000030dc  00000000  00000000  00019566  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00001198  00000000  00000000  0001c600  2**3
+ 15 .debug_aranges 00001198  00000000  00000000  0001c648  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 00000d9d  00000000  00000000  0001d798  2**0
+ 16 .debug_rnglists 00000d9d  00000000  00000000  0001d7e0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  000239a7  00000000  00000000  0001e535  2**0
+ 17 .debug_macro  000239a7  00000000  00000000  0001e57d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0001675b  00000000  00000000  00041edc  2**0
+ 18 .debug_line   00016763  00000000  00000000  00041f24  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000d9a66  00000000  00000000  00058637  2**0
+ 19 .debug_str    000d9a7c  00000000  00000000  00058687  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  0013209d  2**0
+ 20 .comment      00000043  00000000  00000000  00132103  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  0000488c  00000000  00000000  001320e0  2**2
+ 21 .debug_frame  0000488c  00000000  00000000  00132148  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 0000006d  00000000  00000000  0013696c  2**0
+ 22 .debug_line_str 0000006d  00000000  00000000  001369d4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -761,9 +761,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
 
 08000730 <HAL_UART_RxCpltCallback>:
 static uint8_t  rx_buffer[RX_BUFFER_SIZE] = {0};
-static uint16_t volatile head_ptr = 0;				// Write new data pointer
-static uint16_t volatile tail_ptr = 0;				// Read received data pointer
-static uint8_t  rx_temp_byte = 0;					// Read temporary received byte
+static uint16_t volatile head_ptr = 0;				// pointer to write message to buffer
+static uint16_t volatile tail_ptr = 0;				// pointer to read message from buffer
+static uint8_t  rx_temp_byte = 0;					// read temporary received byte
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
  8000730:	b580      	push	{r7, lr}
