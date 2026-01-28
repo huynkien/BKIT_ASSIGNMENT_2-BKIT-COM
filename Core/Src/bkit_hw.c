@@ -8,8 +8,6 @@
 #include "bkit_hw.h"
 #include "usart.h"
 
-#define RX_BUFFER_SIZE 256
-
 static uint8_t  rx_buffer[RX_BUFFER_SIZE] = {0};
 static uint16_t volatile head_ptr = 0;				// pointer to write message to buffer
 static uint16_t volatile tail_ptr = 0;				// pointer to read message from buffer
@@ -58,14 +56,17 @@ bkit_status_t hw_init_uart() {
   */
 
 bkit_status_t hw_send_uart(uint8_t *msg, uint16_t length) {
-	if (HAL_UART_Transmit(&huart6, msg, length, 256) != HAL_OK) {
+	if (msg == NULL || length == 0)
+		return BKIT_COM_ERROR;
+
+	if (HAL_UART_Transmit(&huart6, msg, length, 1000) != HAL_OK)
 		return BKIT_COM_BUSY;
-	}
+
 	return BKIT_COM_OK;
 }
 
 /**
-  * @brief  Read available data from the internal driver buffer (Ring Buffer)
+  * @brief  Read available data from the internal driver256 buffer (Ring Buffer)
   * 		into the user application buffer.
   * @param  buffer Pointer to the user's destination buffer.
   * @param  max_length Maximum capacity of the user's buffer.
@@ -75,6 +76,9 @@ bkit_status_t hw_send_uart(uint8_t *msg, uint16_t length) {
   */
 
 bkit_status_t hw_receive_uart(uint8_t *buffer, uint16_t max_length, uint16_t *received_msg_length) {
+	if (buffer == NULL || received_msg_length == NULL)
+		return BKIT_COM_ERROR;
+
 	uint16_t count = 0;
 	*received_msg_length = 0;
 	while (tail_ptr != head_ptr && count < max_length) {

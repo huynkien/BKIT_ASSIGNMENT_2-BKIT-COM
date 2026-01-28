@@ -10,6 +10,8 @@
 
 #include "main.h"
 
+#define RX_BUFFER_SIZE 1024
+
 /* BKIT-COM status definitions:
  * BKIT_COM_OK:
  *  - Init:    UART peripheral initialized and Interrupt enabled successfully.
