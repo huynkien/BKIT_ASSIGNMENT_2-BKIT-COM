@@ -20,11 +20,16 @@
 #include "main.h"
 #include "adc.h"
 #include "dma.h"
+#include "i2c.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "sensor.h"
 #include "fsmc.h"
+#include "bkit_app.h"
+#include "application.h"
+#include "software_timer.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -54,6 +59,8 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void system_init(void);
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -100,7 +107,9 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM13_Init();
   MX_SPI1_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
+  system_init();
 
   /* USER CODE END 2 */
 
@@ -111,6 +120,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	bkit_com_fsm();
   }
   /* USER CODE END 3 */
 }
@@ -162,6 +172,24 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void system_init(void) {
+	lcd_init();
+	button_init();
+	buzzer_init();
+	sensor_init();
+	timer_init();
+
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  // Run software timers on TIM2 base period interrupt (1 ms)
+  if (htim->Instance == TIM2)
+  {
+    timerRun();
+  }
+}
+
 
 /* USER CODE END 4 */
 

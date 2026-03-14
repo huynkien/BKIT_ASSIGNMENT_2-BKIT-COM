@@ -127,11 +127,13 @@ bkit_status_t bkit_process_receive(BKITSensorData *data) {
 					receive_index = 0;
 				}
 				break;
+			default:
+				break;
 		}
 	}
 
-	// No complete packet this round
-	return BKIT_COM_OK;
+	// No complete packet in this call
+	return BKIT_COM_BUSY;
 }
 
 

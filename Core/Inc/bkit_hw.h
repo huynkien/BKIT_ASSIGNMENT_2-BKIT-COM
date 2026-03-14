@@ -9,8 +9,15 @@
 #define INC_BKIT_HW_H_
 
 #include "main.h"
+#include "usart.h"
+#include "i2c.h"
+#include <stdint.h>
 
-#define RX_BUFFER_SIZE 1024
+#define HW_DRIVER_UART
+//#define HW_DRIVER_I2C
+
+#define RX_BUFFER_SIZE 256
+#define BKIT_I2C_ADDRESS  (0x50U) // Default I2C 7-bit address (adjust per target device)
 
 /* BKIT-COM status definitions:
  * BKIT_COM_OK:
@@ -32,11 +39,8 @@ typedef enum {
 	BKIT_COM_RX_OVERFLOW
 } bkit_status_t;
 
-
-
-
 /* @brief Struct for protocol hardware interface layer
- * - hw_init: Initialize the peripheral (UART, ...).
+ * - hw_init: Initialize the peripheral (UART, I2C, ...).
  * - hw_send: Transmit a sequence of bytes.
  * - hw_receive: Read available data from the internal driver buffer (Ring Buffer) into the user application buffer.
  */
@@ -48,5 +52,6 @@ typedef struct {
 } bkit_interface_t;
 
 extern bkit_interface_t bkit_uart_driver;
+extern bkit_interface_t bkit_i2c_driver;
 
 #endif /* INC_BKIT_HW_H_ */
